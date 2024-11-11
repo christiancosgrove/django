@@ -2,14 +2,16 @@ import random
 from django.http import HttpResponse
 
 def hello_world(request):
+    name = request.GET.get('name', '')
     greetings = [
-        ("👋 Hello, World!", "#667eea, #764ba2"),
-        ("🌟 Welcome, Explorer!", "#4facfe, #00f2fe"),
-        ("🚀 Hi there, Astronaut!", "#fa709a, #fee140"),
-        ("🌈 Greetings, Friend!", "#43e97b, #38f9d7"),
-        ("✨ Hey, Wonderful!", "#f6d365, #fda085")
+        ("👋 Hello{}", "#667eea, #764ba2"),
+        ("🌟 Welcome{}", "#4facfe, #00f2fe"),
+        ("🚀 Hi there{}", "#fa709a, #fee140"),
+        ("🌈 Greetings{}", "#43e97b, #38f9d7"),
+        ("✨ Hey there{}", "#f6d365, #fda085")
     ]
-    greeting, gradient = random.choice(greetings)
+    greeting_template, gradient = random.choice(greetings)
+    greeting = greeting_template.format(f", {name}!" if name else ", World!")
     color1, color2 = gradient.split(',')
     
     html_content = f"""
@@ -49,6 +51,22 @@ def hello_world(request):
     <body>
         <div class="greeting">
             <h1>{greeting}</h1>
+            <form method="GET" style="margin-top: 20px;">
+                <input type="text" 
+                       name="name" 
+                       placeholder="Enter your name"
+                       value="{name}"
+                       style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-right: 8px;">
+                <button type="submit" 
+                        style="padding: 8px 16px; 
+                               background: linear-gradient(135deg, {color1} 0%, {color2} 100%);
+                               border: none;
+                               color: white;
+                               border-radius: 4px;
+                               cursor: pointer;">
+                    Greet Me!
+                </button>
+            </form>
         </div>
     </body>
     </html>
