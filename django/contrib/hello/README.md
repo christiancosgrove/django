@@ -1,6 +1,12 @@
 # Django Hello World App
 
-A simple Django app that displays "Hello, World!" when accessed.
+A stylish Django app that displays random animated greetings with dynamic color schemes. Features include:
+
+- Randomly selected friendly greetings with matching emojis
+- Beautiful gradient backgrounds that change with each greeting
+- Smooth animation effects
+- Clean, modern typography
+- Responsive design that works on all devices
 
 ## Installation
 
